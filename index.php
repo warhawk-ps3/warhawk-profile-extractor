@@ -9,13 +9,41 @@
 <h1>Warhawk profile extractor</h1>
 <?php
 $inputDir = "input/";
-$binFiles = glob($inputDir . "Stats_BinaryStatsDownload_Submit.jsp*");
+$files = glob($inputDir . "*.jsp*ID=*");
+$accountIds = getAccountIds($files);
 
-foreach ($binFiles as $binFile) {
-	showBinaryStats($binFile);
+foreach ($accountIds as $accountId) {
+	showBinaryStats($files, $accountId);
 }
 
-function showBinaryStats($file) {
+function getAccountIds($files) {
+	$ids = array();
+
+	foreach ($files as $file) {
+		preg_match("/.*ID=(\d+).*/", $file, $matches);
+		if (!in_array($matches[1], $ids, true)) {
+			array_push($ids, $matches[1]);
+		}
+	}
+
+	sort($ids, SORT_NUMERIC);
+
+	return $ids;
+}
+
+function getRelatedFiles($files, $accountId, $prefix) {
+	$relatedFiles = array();
+
+	foreach ($files as $file) {
+		if (strpos($file, $prefix) && strpos($file, "ID=" . $accountId . "&")) {
+			array_push($relatedFiles, $file);
+		}
+	}
+
+	return $relatedFiles;
+}
+
+function showBinaryStats($files, $accountId) {
 	//Stat names sourced from Warhawk Stats (https://web.archive.org/web/20131209050121/http://www.warhawkstats.com/)
 	$ranks = array("Recruit", "Airman", "Airman 1st Class", "Sergeant", "Chief Sergeant", "Wingman", "Wing Leader", "Sergeant Major", "Cmd Sergeant", "2nd Lieutenant", "1st Lieutenant", "Commander", "Captain", "Major", "Air Marshal", "Cmd Marshal", "Lt. Colonel", "Colonel", "Brigadier Gen.", "General");
 
@@ -28,10 +56,11 @@ function showBinaryStats($file) {
 	//TODO: Figure out what this data represents... Some of it exists in other XML files.
 	$others = array("Total Points", "Combat Points", "Team Points", "Bonus Points", "Unknown5", "Unknown6", "Time Played", "Wins", "Losses", "Unknown10", "Unknown11", "Unknown12", "Kills", "Unknown14", "Unknown15", "Deaths", "Unknown17", "Unknown18", "Unknown19", "Unknown20", "Unknown21", "Unknown22", "Unknown23", "Unknown24", "Unknown25", "Unknown26", "Unknown27", "Unknown28", "Unknown29", "Unknown30", "Unknown31", "Unknown32", "Unknown33", "Unknown34", "Unknown35", "Unknown36", "Unknown37", "Unknown38", "Unknown39", "Unknown40", "Unknown41", "Unknown42", "Unknown43", "Unknown44", "Unknown45", "Unknown46", "Unknown47", "Unknown48", "Unknown49", "Unknown50", "Unknown51", "Unknown52", "Unknown53", "Unknown54");
 
-	$data = file_get_contents($file);
+	$relatedFile = getRelatedFiles($files, $accountId, "Stats_BinaryStatsDownload_Submit.jsp")[0];
+	$data = file_get_contents($relatedFile);
 	$pieces = str_split($data, 4);
 
-	echo "<h2>" . str_replace('%3f', '?', basename($file)) . "</h2>";
+	echo "<h2>" . str_replace('%3f', '?', basename($relatedFile)) . "</h2>";
 
 	for ($i = 0; $i < count($pieces); $i++) {
 		$piece = $pieces[$i];
