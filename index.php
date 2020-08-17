@@ -13,6 +13,7 @@ $files = glob($inputDir . "*.jsp*ID=*");
 $accountIds = getAccountIds($files);
 
 foreach ($accountIds as $accountId) {
+	echo "<h2>Account #" . $accountId . "</h2>";
 	showBinaryStats($files, $accountId);
 }
 
@@ -60,7 +61,7 @@ function showBinaryStats($files, $accountId) {
 	//TODO: Figure out what this data represents... Some of it exists in other XML files.
 	$others = array("Total Points", "Combat Points", "Team Points", "Bonus Points", "Unknown5", "Unknown6", "Time Played", "Wins", "Losses", "Unknown10", "Unknown11", "Unknown12", "Kills", "Unknown14", "Unknown15", "Deaths", "Unknown17", "Unknown18", "Unknown19", "Unknown20", "Unknown21", "Unknown22", "Unknown23", "Unknown24", "Unknown25", "Unknown26", "Unknown27", "Unknown28", "Unknown29", "Unknown30", "Unknown31", "Unknown32", "Unknown33", "Unknown34", "Unknown35", "Unknown36", "Unknown37", "Unknown38", "Unknown39", "Unknown40", "Unknown41", "Unknown42", "Unknown43", "Unknown44", "Unknown45", "Unknown46", "Unknown47", "Unknown48", "Unknown49", "Unknown50", "Unknown51", "Unknown52", "Unknown53", "Unknown54");
 
-	echo "<h2>" . str_replace('%3f', '?', basename($relatedFile)) . "</h2>";
+	echo "<h3>" . str_replace('%3f', '?', basename($relatedFile)) . "</h3>";
 
 	for ($i = 0; $i < count($pieces); $i++) {
 		$piece = $pieces[$i];
