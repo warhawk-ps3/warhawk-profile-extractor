@@ -14,6 +14,7 @@ $accountIds = getAccountIds($files);
 
 foreach ($accountIds as $accountId) {
 	echo "<h2>Account #" . $accountId . "</h2>";
+	showPlayerStats($files, $accountId);
 	showBinaryStats($files, $accountId);
 }
 
@@ -42,6 +43,23 @@ function getRelatedFiles($files, $accountId, $prefix) {
 	}
 
 	return $relatedFiles;
+}
+
+function showPlayerStats($files, $accountId) {
+	$relatedFile = getRelatedFiles($files, $accountId, "Stats_GetPlayerStats.jsp")[0];
+	$data = simplexml_load_file(__DIR__ . "/" . $relatedFile);
+
+	echo "<h3>" . str_replace('%3f', '?', basename($relatedFile)) . "</h3>";
+
+	foreach ($data->Career_Leaderboard as $careerLeaderboard) {
+		foreach ($careerLeaderboard->attributes() as $attribute) {
+			echo $attribute->getName() . ": " . $attribute . PHP_EOL;
+		}
+
+		foreach ($careerLeaderboard->children() as $child) {
+			echo $child->getName() . ": " . $child . PHP_EOL;
+		}
+	}
 }
 
 function showBinaryStats($files, $accountId) {
