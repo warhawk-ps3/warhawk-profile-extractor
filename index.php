@@ -56,8 +56,8 @@ function showPlayerStats($files, $accountId) {
 			echo $attribute->getName() . ": " . $attribute . PHP_EOL;
 		}
 
-		foreach ($careerLeaderboard->children() as $child) {
-			echo $child->getName() . ": " . $child . PHP_EOL;
+		foreach ($careerLeaderboard->children() as $element) {
+			echo $element->getName() . ": " . $element . PHP_EOL;
 		}
 	}
 }
