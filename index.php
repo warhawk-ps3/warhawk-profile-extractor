@@ -16,6 +16,7 @@ foreach ($accountIds as $accountId) {
 	echo "<h2>Account #" . $accountId . "</h2>";
 	showPlayerStats($files, $accountId);
 	showBinaryStats($files, $accountId);
+	showSvml($files, $accountId);
 }
 
 function getAccountIds($files) {
@@ -130,6 +131,144 @@ function showBinaryStats($files, $accountId) {
 		}
 
 		echo bin2hex($piece) . " = " . $suffix . PHP_EOL;
+	}
+}
+
+function showSvml($files, $accountId) {
+	foreach ($files as $file) {
+		if (substr(basename($file), 0, 6) !== "Stats_" && strpos(basename($file), "accountID=" . $accountId . "&")) {
+			showWarhawkStats($file, $accountId);
+		}
+	}
+}
+
+function showWarhawkStats($file, $accountId) {
+	$data = file_get_contents($file);
+	$data = str_replace('&', '', $data);
+	$data = simplexml_load_string($data);
+
+	$labels = array(4 => "Eucadia", 6 => "Island Outpost", 8 => "The Badlands", 10 => "Omega Factory", 11 => "Destroyed Capitol", 12 => "Archipelago", 13 => "Vaporfield Glacier", 14 => "Tau Crater", 101 => "Aircraft MG", 102 => "Lightning Gun", 103 => "Charged Lightning Gun", 104 => "TOW Missile", 105 => "Swarm Missile", 106 => "Homing Missile", 107 => "Chaff", 108 => "Air Mines", 109 => "Cluster Bomb", 110 => "Stealth", 114 => "Pistol", 115 => "Flamethrower", 116 => "Rocket Launcher", 117 => "Land Mine", 118 => "Rifle", 119 => "Sniper Rifle", 120 => "Combat Blade", 121 => "Binoculars", 122 => "Grenade", 123 => "Field Wrench", 124 => "Bio Field", 126 => "Tank HE Round", 130 => "4x4 Heavy MG", 134 => "Fixed Heavy MG", 135 => "Flak Turret", 137 => "Missile Turret", 201 => "Warhawk/Nemesis", 203 => "Dropship", 204 => "4x4", 205 => "Medium Tank", 207 => "APC", 210 => "MachineGuns Turret", 211 => "Flak Turret", 213 => "Missile Turret", 300 => "Death Match", 301 => "Team Death Match", 302 => "Capture The Flag", 303 => "Zones", 304 => "Hero", 305 => "Collection", 325 => "Eucadian", 326 => "Chernovan", 500 => "Recruit", 501 => "Airman", 502 => "Airman 1st Class", 503 => "Sergeant", 504 => "Chief Sergeant", 505 => "Wingman", 506 => "Wing Leader", 507 => "Sergeant Major", 508 => "Command Sergeant", 509 => "2nd Lieutenant", 510 => "1st Lieutenant", 511 => "Commander", 512 => "Captain", 513 => "Major", 514 => "Air Marshal", 515 => "Command Marshal", 516 => "Lt. Colonel", 517 => "Colonel", 518 => "Brigadier General", 519 => "General", 1002 => "Statistics", 1003 => "Player Statistics", 1009 => "Stats Over Time", 1018 => "Combat", 1019 => "Objective Stats", 1020 => "Damage", 1021 => "Game Mode Stats", 1022 => "Game Summary", 1023 => "Global", 1025 => "Map Stats", 1026 => "Marksmanship", 1028 => "Player Stats", 1029 => "Team Stats", 1030 => "Team Play", 1032 => "Scores", 1033 => "Vehicle Stats", 1034 => "Weapon Stats", 1035 => "Stats Over Time", 1036 => "Zones", 1039 => "Played as Chernovan", 1040 => "Played as Eucadian", 1041 => "Time as Chernovan", 1042 => "Time as Eucadian", 1067 => "Level 2 Expansions", 1068 => "Level 2 Expansion Assists", 1069 => "Level 3 Expansions", 1070 => "Level 3 Expansion Assists", 1071 => "Accuracy", 1072 => "Against You", 1074 => "Ammo", 1075 => "Ammo Collected", 1078 => "As Troop", 1079 => "As Vehicle", 1083 => "  Bodyshots", 1084 => "Bodyshots", 1085 => "Bonus", 1088 => "Capture Assists", 1090 => "Captures", 1091 => "  Troop", 1092 => "Collision Hits", 1093 => "Combat", 1097 => "Damage Done", 1098 => "Damage Received", 1101 => "Deaths From Team", 1102 => "Deaths / Minute", 1103 => "Deaths / Round", 1104 => "Deaths", 1105 => "Deaths: Road", 1106 => "Defends", 1107 => "Objective Kill Assists", 1108 => "Disconnects", 1110 => "Early Exits", 1111 => "Game Mode", 1112 => "Level", 1113 => "Favorites", 1118 => "Objective Captures", 1119 => "Objective Grabs", 1120 => "Objective Saves", 1122 => "From Collision", 1124 => "From Self", 1125 => "From Team", 1126 => "From Troops", 1127 => "From Vehicles", 1128 => "Game Count", 1130 => "Game Mode Overview", 1131 => "Game Play", 1132 => "Games Completed", 1133 => "Games Played", 1134 => "Game Time", 1135 => "Total Points", 1137 => "Deadliest Weapon", 1138 => "Headshots", 1139 => "  Headshots", 1140 => "Health Pickups", 1142 => "Hits Received", 1144 => "Kicks", 1145 => "Kill Assists", 1146 => "Kill/Death Ratio", 1147 => "Kills", 1148 => "Kills / Minute", 1149 => "Kills / Round", 1150 => "Kills-Player Weapon", 1151 => "Kills: Road", 1152 => "Kills-Vehicle Weapon", 1154 => "Longest Death Streak", 1155 => "Longest Kill Streak", 1156 => "Losses", 1157 => "Map", 1160 => "Driven", 1161 => "Flown", 1162 => "On Foot", 1163 => "Miles Traveled", 1165 => "Mode", 1167 => "Most Deaths IAR", 1169 => "Most Kills IAR", 1171 => "Most IAR", 1173 => "Negative Points", 1174 => "Neutralize", 1175 => "Neutralize Assists", 1176 => "Number Of Pickups", 1178 => "Stats Over Time", 1179 => "Number of Kills", 1180 => "Player Killed By", 1181 => "Number of Kills", 1182 => "Player Killed", 1183 => "Player Overview", 1184 => "Player Rank", 1189 => "Road Deaths", 1190 => "Road Kills", 1191 => "Saves", 1192 => "Best Points In A Round", 1193 => "Global Points", 1195 => "Score Per Minute", 1196 => "Average Points Per Round", 1197 => "Shot Accuracy", 1198 => "Shots Fired", 1199 => "Shots Hit", 1200 => "Suicides", 1201 => "Team", 1203 => "Team Deaths", 1204 => "Team Kills", 1205 => "Team Overview", 1207 => "Team Points", 1209 => "Team Stats", 1210 => "Zone Stats", 1212 => "Time As Driver", 1213 => "Time As Passenger", 1214 => "Time as a Solider", 1215 => "Time in Vehicles", 1216 => "Time in Aircraft", 1217 => "Time Played", 1219 => "Total Damage Done", 1220 => "Total Damage Received", 1221 => "Total Distance", 1223 => "Total", 1224 => "Wins/Losses", 1225 => "Total Time Using", 1226 => "To Team", 1227 => "To Troops", 1228 => "To Vehicles", 1230 => "  Vehicle", 1232 => "Vehicle Deaths", 1233 => "Vehicle Hits", 1234 => "  Vehicle Hits", 1235 => "Vehicle Kills", 1236 => "Vehicle Overview", 1237 => "Vehicles Destroyed", 1239 => "  Air Weapon", 1240 => "Aircraft Deaths", 1241 => "Aircraft Kills", 1242 => "Weapon", 1244 => "Weapon Most Killed By", 1245 => "Weapon With Most Kills", 1247 => "Win/Loss Ratio", 1248 => "Wins", 1250 => "With Collision", 1253 => "Player Kills", 1254 => "You Against This Vehicle", 1255 => "This Vehicle Against Ground", 1256 => "This Vehicle Against Air", 1158 => "Map Overview", 1259 => "Time In", 1260 => "Weapon Overview", 1261 => "KDR", 1263 => "Time As", 1265 => "Played", 1267 => "Most Points IAR", 1268 => "Select Stats Over Time to view Graphs of your stats.", 1269 => "View your history for Global, Team Stats, Capture ", 1270 => "the Flag and Zones modes. The graphs only keep your ", 1271 => "history for the last 90 days.", 1272 => "Press X to enter the Stats Over Time page menu", 1274 => "Combat: Kills", 1275 => "Combat: Deaths", 1276 => "Total Kills", 1277 => "Total Deaths", 1278 => "Ties", 1279 => "Vehicle", 1280 => "Global Accuracy", 1281 => "Objective Kills", 1282 => "Zone Play", 1283 => "Objective Stats", 1284 => "Level 2 Reductions", 1285 => "Level 2 Reduction Assists", 1286 => "Level 3 Reductions", 1287 => "Level 3 Reduction Assists");
+
+	$buttons = array();
+	$buttonCounter = 0;
+
+	echo "<h3>" . str_replace('%3f', '?', basename($file)) . "</h3>" . PHP_EOL;
+
+	foreach ($data->BUTTON as $button) {
+		array_push($buttons, $labels[trim($button)]);
+	}
+
+	foreach ($data->TEXT as $text) {
+		if (strpos($text['name'], "header")) {
+			if (substr($text['name'], 1, 1) == $buttonCounter + 1) {
+				echo "<h4>" . $buttons[$buttonCounter] . "</h4>" . PHP_EOL;
+				$buttonCounter++;
+			}
+
+			echo "<h5>" . $labels[trim($text)] . "</h5>" . PHP_EOL;
+		}
+		else if (substr($text['name'], -1) === "N")
+		{
+			echo "<strong>" . $labels[trim($text)] . "</strong>: ";
+		}
+		else if (substr($text['name'], -1) === "V")
+		{
+			if ($text['class'] == "locnamelocvalue") {
+				echo $labels[trim($text)] . PHP_EOL;
+			}
+			else {
+				echo $text . PHP_EOL;
+			}
+		}
+		else if ($text['name'] == "pagetitle") {
+			echo $labels[trim($text)] . PHP_EOL;
+		}
+		else {
+			echo $text . PHP_EOL;
+		}
+	}
+
+	foreach ($data->GRID as $grid) {
+		echo "<h4>" . $buttons[$buttonCounter] . "</h4>" . PHP_EOL;
+		$buttonCounter++;
+
+		echo "<table>" . PHP_EOL;
+		echo "<caption>" . $labels[trim($grid['toolTip'])] . "</caption>" . PHP_EOL;
+
+		foreach ($grid->COLUMNS as $columns) {
+			echo "<thead>" . PHP_EOL . "<tr>" . PHP_EOL;
+
+			foreach ($columns->COLUMN as $column) {
+				echo "<th>" . $labels[trim($column)] . "</th>" . PHP_EOL;
+			}
+
+			echo "</tr>" . PHP_EOL . "</thead>" . PHP_EOL;
+		}
+
+		foreach ($grid->ROWS as $rows) {
+			echo "<tbody>" . PHP_EOL;
+
+			foreach ($rows->ROW as $row) {
+				echo "<tr>" . PHP_EOL;
+
+				foreach ($row->CELL as $cell) {
+					echo "<td>";
+
+					if ($cell['href'] || !$row->CELL[0]['href']) {
+						echo $labels[trim($cell)];
+					}
+					else {
+						echo trim($cell);
+					}
+
+					echo "</td>" . PHP_EOL;
+				}
+
+				echo "</tr>" . PHP_EOL;
+			}
+
+			echo "</tbody>" . PHP_EOL;
+		}
+
+		echo "</table>" . PHP_EOL;
+	}
+
+	foreach ($data->GRAPH as $graph) {
+		if (substr($graph['name'], 1, 1) - 1 == $buttonCounter && substr($graph['name'], 7, 1) == 1) {
+			echo "<h4>" . $buttons[$buttonCounter] . "</h4>" . PHP_EOL;
+			$buttonCounter++;
+		}
+
+		echo "<table>" . PHP_EOL;
+		echo "<caption>" . $labels[trim($graph['toolTip'])] . "</caption>" . PHP_EOL;
+
+		foreach ($graph->COLUMNS as $columns) {
+			echo "<thead>" . PHP_EOL . "<tr>" . PHP_EOL;
+
+			foreach ($columns->COLUMN as $column) {
+				echo "<th>" . trim($column) . "</th>" . PHP_EOL;
+			}
+
+			echo "</tr>" . PHP_EOL . "</thead>" . PHP_EOL;
+		}
+
+		foreach ($graph->ROWS as $rows) {
+			echo "<tbody>" . PHP_EOL;
+
+			foreach ($rows->ROW as $row) {
+				echo "<tr>" . PHP_EOL;
+
+				foreach ($row->CELL as $cell) {
+					echo "<td>" . trim($cell) . "</td>" . PHP_EOL;
+				}
+
+				echo "</tr>" . PHP_EOL;
+			}
+
+			echo "</tbody>" . PHP_EOL;
+		}
+
+		echo "</table>" . PHP_EOL;
 	}
 }
 ?>
