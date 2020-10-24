@@ -94,11 +94,14 @@ function showBinaryStats($files, $accountId) {
 		$obtained = hexdec(bin2hex($piece[0]));
 		$date = null;
 
-		if ($obtained) {
+		if ($obtained === 1) {
 			$month = hexdec(bin2hex($piece[1]));
 			$day =  hexdec(bin2hex($piece[2]));
 			$year = 2000 + hexdec(bin2hex($piece[3]));
-			$date = date_create($year . "-" . $month . "-" . $day);
+
+			if (checkdate($month, $day, $year)) {
+				$date = date_create($year . "-" . $month . "-" . $day);
+			}
 		}
 
 		if ($date) {
