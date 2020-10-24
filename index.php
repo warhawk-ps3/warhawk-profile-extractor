@@ -139,7 +139,7 @@ function showBinaryStats($files, $accountId) {
 
 function showSvml($files, $accountId) {
 	foreach ($files as $file) {
-		if (substr(basename($file), 0, 6) !== "Stats_" && strpos(basename($file), "accountID=" . $accountId . "&")) {
+		if (substr(basename($file), 0, 6) !== "Stats_" && !strpos(basename($file), "(") && strpos(basename($file), "accountID=" . $accountId . "&")) {
 			showWarhawkStats($file, $accountId);
 		}
 	}
