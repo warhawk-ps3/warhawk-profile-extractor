@@ -50,7 +50,7 @@ function showPlayerStats($files, $accountId) {
 	$relatedFile = getRelatedFiles($files, $accountId, "Stats_GetPlayerStats.jsp")[0];
 	$data = simplexml_load_file(__DIR__ . "/" . $relatedFile);
 	$attributeNames = array("Game Mode", "Rank", "User ID", "Username");
-	$elementNames = array("Rank", "Name", "Total Points", "Team Points", "Combat Points", "Bonus Points", "Time Played", "Kills", "Deaths", "Kill/Death Ratio", "Accuracy", "Wins", "Losses", "Wins/Losses", "Score/Min", "DM Points", "TDM Points", "CTF Points", "Zones Points", "Miles Walked", "Miles Driven", "Miles Flown", "Hero Points", "Collection Points");
+	$elementNames = array("Total Points", "Team Points", "Combat Points", "Bonus Points", "Time Played", "Kills", "Deaths", "Kill/Death Ratio", "Accuracy", "Wins", "Losses", "Wins/Losses", "Score/Min", "DM Points", "TDM Points", "CTF Points", "Zones Points", "Miles Walked", "Miles Driven", "Miles Flown", "Hero Points", "Collection Points");
 
 	echo "<h3>" . str_replace('%3f', '?', basename($relatedFile)) . "</h3>";
 
