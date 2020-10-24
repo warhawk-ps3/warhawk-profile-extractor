@@ -13,7 +13,7 @@ $files = glob($inputDir . "*.jsp*ID=*");
 $accountIds = getAccountIds($files);
 
 foreach ($accountIds as $accountId) {
-	echo "<h2>Account #" . $accountId . "</h2>";
+	echo "<h2>Account #" . $accountId . "</h2>" . PHP_EOL;
 	showPlayerStats($files, $accountId);
 	showBinaryStats($files, $accountId);
 	showSvml($files, $accountId);
