@@ -48,7 +48,8 @@ function getRelatedFiles($files, $accountId, $prefix) {
 
 function showPlayerStats($files, $accountId) {
 	$relatedFile = getRelatedFiles($files, $accountId, "Stats_GetPlayerStats.jsp")[0];
-	$data = simplexml_load_file(__DIR__ . "/" . $relatedFile);
+	$data = file_get_contents($relatedFile);
+	$data = simplexml_load_string($data);
 	$attributeNames = array("Game Mode", "Rank", "User ID", "Username");
 	$elementNames = array("Total Points", "Team Points", "Combat Points", "Bonus Points", "Time Played", "Kills", "Deaths", "Kill/Death Ratio", "Accuracy", "Wins", "Losses", "Wins/Losses", "Score/Min", "DM Points", "TDM Points", "CTF Points", "Zones Points", "Miles Walked", "Miles Driven", "Miles Flown", "Hero Points", "Collection Points");
 
