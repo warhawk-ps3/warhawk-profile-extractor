@@ -286,6 +286,7 @@ $labels = array(
 	),
 	"showWarhawkStats" => array(
 		"labels" => array(
+			0 => "",
 			4 => "Eucadia",
 			6 => "Island Outpost",
 			8 => "The Badlands",
