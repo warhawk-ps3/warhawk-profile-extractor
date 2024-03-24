@@ -211,10 +211,11 @@ function showWarhawkStats($file, $accountId, $labels) {
 			foreach ($rows->ROW as $row) {
 				echo "<tr>" . PHP_EOL;
 
+				$cellIndex = 0;
 				foreach ($row->CELL as $cell) {
 					echo "<td>";
 
-					if ($cell['href'] || !$row->CELL[0]['href']) {
+					if ($cellIndex === 0) {
 						echo $labels[trim($cell)];
 					}
 					else {
@@ -222,6 +223,8 @@ function showWarhawkStats($file, $accountId, $labels) {
 					}
 
 					echo "</td>" . PHP_EOL;
+
+					$cellIndex++;
 				}
 
 				echo "</tr>" . PHP_EOL;
