@@ -158,6 +158,11 @@ function showWarhawkStats($file, $accountId, $labels) {
 		array_push($buttons, $labels[trim($button)]);
 	}
 
+	if (end($buttons) === $labels[1021]) {
+		array_push($buttons, $labels[1029] . " (Missing)");
+		array_push($buttons, $labels[1035] . " (Missing)");
+	}
+
 	foreach ($data->TEXT as $text) {
 		if (strpos($text['name'], "header")) {
 			if (substr($text['name'], 1, 1) == $buttonCounter + 1) {
