@@ -48,6 +48,8 @@ function getRelatedFiles($files, $accountId, $prefix) {
 }
 
 function showPlayerStats($files, $accountId, $labels) {
+	libxml_use_internal_errors(true);
+
 	$relatedFile = getRelatedFiles($files, $accountId, "Stats_GetPlayerStats.jsp")[0];
 	$data = file_get_contents($relatedFile);
 	$data = simplexml_load_string($data);
@@ -56,6 +58,11 @@ function showPlayerStats($files, $accountId, $labels) {
 	$elementNames = $labels["showPlayerStats"]["elementNames"];
 
 	echo "<h3>" . str_replace('%3f', '?', basename($relatedFile)) . "</h3>";
+
+	if ($data === false) {
+		echo "Not found";
+		return;
+	}
 
 	foreach ($data->Career_Leaderboard as $careerLeaderboard) {
 		$attributes = $careerLeaderboard->attributes();
