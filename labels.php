@@ -248,7 +248,7 @@ $labels = array(
 			"Objective Stats|Objective Saves",
 			"Objective Stats|Objective Kills",
 			"Zone Stats|Captures",
-			"Cluster Bomb|Combat: Deaths|Aircraft Kills",
+			"Unknown21",
 			"Unknown22",
 			"Zone Stats|Defends",
 			"Unknown24",
