@@ -241,11 +241,11 @@ $labels = array(
 			"TDM Wins", //Same as Team Death Match - Wins
 			"Team Game Wins", //Wins minus Death Match Wins
 			"Kills",
-			"Combat: Kills|Total Kills",
+			"Death Match|Combat: Kills|Total Kills",
 			"Combat: Kills|Kill Assists",
 			"Deaths",
 			"Objective Stats|Objective Captures",
-			"Objective Stats|Objective Saves",
+			"Capture The Flag|Objective Stats|Objective Saves",
 			"Objective Stats|Objective Kills",
 			"Zone Stats|Captures",
 			"Unknown21",
