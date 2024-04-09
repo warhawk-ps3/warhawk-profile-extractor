@@ -237,9 +237,9 @@ $labels = array(
 			"Time Played",
 			"Wins",
 			"Losses",
-			"Death Match Wins", //Same as Death Match - Wins
-			"TDM Wins", //Same as Team Death Match - Wins
-			"Team Game Wins", //Wins minus Death Match Wins
+			"Death Match Wins... Death Match|Wins",
+			"TDM Wins... Team Death Match|Wins",
+			"Team Game Wins... Wins - Death Match Wins",
 			"Kills",
 			"Kills in DM... Death Match|Combat: Kills|Total Kills",
 			"Combat: Kills|Kill Assists",
