@@ -244,9 +244,9 @@ $labels = array(
 			"Kills in DM... Death Match|Combat: Kills|Total Kills",
 			"Combat: Kills|Kill Assists",
 			"Deaths",
-			"Objective Stats|Objective Captures",
+			"Flag Captures... Capture The Flag|Objective Stats|Objective Captures + Collection|Objective Stats|Objective Captures", //Mislabelled in the game client ("Flag" might be an outdated term for "Objective")
 			"Flag Saves... Capture The Flag|Objective Stats|Objective Saves",
-			"Objective Stats|Objective Kills",
+			"Flag Carrier Kills... Capture The Flag|Objective Stats|Objective Kills + Hero|Objective Stats|Objective Kills + Collection|Objective Stats|Objective Kills", //Mislabelled in the game client ("Flag" might be an outdated term for "Objective")
 			"Zone Captures... Zone Stats|Captures",
 			"Unknown21",
 			"Unknown22",
