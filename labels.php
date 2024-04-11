@@ -248,7 +248,7 @@ $labels = array(
 			"Flag Saves... Capture The Flag|Objective Stats|Objective Saves",
 			"Flag Carrier Kills... Capture The Flag|Objective Stats|Objective Kills + Hero|Objective Stats|Objective Kills + Collection|Objective Stats|Objective Kills", //Mislabelled in the game client ("Flag" might be an outdated term for "Objective")
 			"Zone Captures... Zone Stats|Captures",
-			"Unknown21",
+			"Zone Expansions... Zones|Zone Stats|Level 2 Expansions + Zones|Zone Stats|Level 3 Expansions",
 			"Unknown22",
 			"Zone Defends... Zone Stats|Defends",
 			"Unknown24",
