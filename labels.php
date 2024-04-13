@@ -249,7 +249,7 @@ $labels = array(
 			"Flag Carrier Kills... Capture The Flag|Objective Stats|Objective Kills + Hero|Objective Stats|Objective Kills + Collection|Objective Stats|Objective Kills", //Mislabelled in the game client ("Flag" might be an outdated term for "Objective")
 			"Zone Captures... Zone Stats|Captures",
 			"Zone Expansions... Zones|Zone Stats|Level 2 Expansions + Zones|Zone Stats|Level 3 Expansions",
-			"Unknown22",
+			"Neutralizes/Reductions... Player Statistics|Zone Stats|Neutralize + Player Statistics|Zone Stats|Level 2 Reductions + Player Statistics|Zone Stats|Level 3 Reductions",
 			"Zone Defends... Zone Stats|Defends",
 			"Unknown24",
 			"Hours in an Aircraft... Game Time|Time in Aircraft:|FIRST NUMBER",
